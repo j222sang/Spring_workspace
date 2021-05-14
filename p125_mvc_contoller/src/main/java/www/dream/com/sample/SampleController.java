@@ -1,5 +1,7 @@
 package www.dream.com.sample;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import www.dream.com.sample.model.SVO4Debugging;
+import www.dream.com.sample.model.SampleMasterVo;
 import www.dream.com.sample.model.SampleVO;
 
 @Controller // Servlet Component로 Container에 담기기 위해서는 우리가 어디를 더 보고 확인해야 하는가? ->
@@ -60,6 +64,42 @@ public class SampleController {
 	 */
 	@GetMapping(value = "vo")
 	public void basic4SampleVO(SampleVO obj) {
+		System.out.println(obj);
+	}
+	
+	@GetMapping(value = "vo4d")
+	public void basic4SVO4Debugging(SVO4Debugging obj) {
+		System.out.println(obj);
+	}
+	/**
+	 *  List<String> interface로는 객체 생성 못해서 오류남
+	 *  @RequestParam("ids") 설정안해주면 list객체로 매핑 안됨 
+	 * @param ids
+	 */
+	@GetMapping(value = "list")
+	public void basic4list(@RequestParam("ids") ArrayList<String> ids) {
+		for (String str : ids) {
+			System.out.println(str);
+		}
+	}
+	/**
+	 * 배열의 경우 동일 이름이 @RequestParam이 없어도 구동된다.. ArrayList 더 편리
+	 * @param ids
+	 */
+	@GetMapping(value = "arr")
+	public void basic4Array(@RequestParam("ids") String[] ids) {
+		for (String str : ids) {
+			System.out.println(str);
+		}
+	}
+
+	/**
+	 * sample/masterDetail?id=0001&listSampleVO%5B0%5D.name=bbb&listSampleVO%5B0%5D.age=555
+	  &id=0002&listSampleVO%5B1%5D.name=홍길동&listSampleVO%5B1%5D.age=123456
+	 * @param obj
+	 */
+	@GetMapping(value = "masterDetail")
+	public void basic4masterDetail(SampleMasterVo obj) {
 		System.out.println(obj);
 	}
 }
