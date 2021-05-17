@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Restaurant {
-	// 의존성 주입
+	// 의존성 주입3
 	@Autowired
 	@Getter
 	private Chef chef;
-
+	
 }
