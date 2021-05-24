@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class User extends Party {
-	
 	public User(String userId) {
 		super(userId);
 	}
-
 }

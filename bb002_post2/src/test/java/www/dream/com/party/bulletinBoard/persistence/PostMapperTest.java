@@ -34,16 +34,45 @@ public class PostMapperTest {
       }catch(Exception e) {
          e.printStackTrace();
       }
-      
    }
-
+	
 	@Test
-	public void test001GetBoard() {
+	public void test010DeleteById() {
+		try {
+			System.out.println(postMapper.DeletePostById("00001"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void test040GetList() {
 		assertNotNull(postMapper);
 		try {
 			postMapper.getList(1).forEach(post -> {
 				System.out.println(post);
 			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test020UpdateById() {
+		try {
+			PostVO post = postMapper.findPostById("0000E");
+			post.setTitle(post.getTitle() + "1");
+			postMapper.updatePost(post);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void test030GetFindById() {
+		try {
+			System.out.println(postMapper.findPostById("00001"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

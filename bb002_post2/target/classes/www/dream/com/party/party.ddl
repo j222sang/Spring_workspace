@@ -101,4 +101,5 @@ insert into s_contact_point(user_id, contact_point_type, info)
 insert into s_contact_point(user_id, contact_point_type, info)
 	values('lee', 'address', '조선 충청도 아산');
 
---Code Table. 
+--Code Table.
+
