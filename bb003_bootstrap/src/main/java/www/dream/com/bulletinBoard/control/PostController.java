@@ -35,7 +35,7 @@ public class PostController {
 		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
 	}
 
-	@GetMapping(value="readPost")
+	@GetMapping(value={"readPost", "modifyPost"})
 	public void findPostById(@RequestParam("boardId") int boardId, 
 			@RequestParam("postId") String id, Model model) {
 		model.addAttribute("post", postService.findPostById(id));
@@ -60,13 +60,23 @@ public class PostController {
 		
 		return "redirect:/post/list?boardId=" + boardId;
 	}
-
+	
+	
+	@PostMapping(value="modifyPost")
+	public String modifyPost(@RequestParam("boardId") int boardId, PostVO modifiedPost
+			, RedirectAttributes rttr) {
+		
+		if (postService.updatePost(modifiedPost)) {
+			rttr.addFlashAttribute("result", "수정");
+		}
+		return "redirect:/post/list?boardId=" + boardId;
+	}
 	
 	@PostMapping(value="removePost")
 	public String removePost(@RequestParam("boardId") int boardId, 
 			@RequestParam("postId")String id, RedirectAttributes rttr) {
 		if (postService.deletePostById(id)) {
-			rttr.addFlashAttribute("result", "삭제 성공");
+			rttr.addFlashAttribute("result", "삭제");
 		}
 		return "redirect:/post/list?boardId=" + boardId;
 	}
