@@ -5,7 +5,7 @@ drop table s_board;
 create table s_board(
 	id					number(9) primary key,
 	name				varchar2(100),
-	description			varchar2(1000)
+	description			varchar2(1000),
 	reg_dt			timestamp		default sysdate not null,	--등록시점
     upt_dt			timestamp		default sysdate not null
 );
