@@ -11,17 +11,10 @@
 	<div class="card shadow mb-4">
 		<div class="card-body">
 			<form action="/post/registerPost" method="post">
-				<div class="form-group">
-					<label>제목</label> <input class="form-control" name="title">
-					<%
-					request.setCharacterEncoding("UTF-8");
-					%>
-				</div>
-				<div class="form-group">
-					<label>내용</label>
-					<textarea class="form-control" name="content" rows="3"></textarea>
-				</div>
-				<button type="submit" class="btn btn-primary btn-icon-split">등록</button>
+				<%@ include file="./includes/postCommon.jsp"%>
+				
+				<button type="submit" class="btn btn-info btn-icon-split">
+				등록<i class="fas fa-check"></i></button>
 				<button type="reset" class="btn btn-secondary">초기화</button>
 				<input type="hidden" name="boardId" value="${boardId}">
 			</form>
@@ -35,3 +28,9 @@
 <!-- End of Main Content -->
 
 <%@ include file="../includes/footer.jsp"%>
+<script type="text/javascript">
+$(document).ready(function(){
+	controlInput('신규');
+});
+</script>
+

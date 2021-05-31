@@ -12,23 +12,7 @@
    <div class="card shadow mb-4">
       <div class="card-body">
          <form id="frmpost" action="/post/modifyPost" method="post">
-            <div class="form-group">
-               <label>아이디</label> <input name="Id" value="${post.id}" readonly>
-            </div>
-            <div class="form-group">
-               <label>제목</label> <input name="title" value="${post.title}"
-                  class="form-control">
-            </div>
-
-            <div class="form-group">
-               <label>내용</label>
-               <textarea name="content" class="form-control" rows="3">${post.content} </textarea>
-            </div>
-
-            <div class="form-group">
-               <label>작성자</label> <input
-                  value="${post.writer.name}" class="form-control" readonly>
-            </div>
+			<%@ include file="./includes/postCommon.jsp"%>
             
             <button type="submit" data-oper='modify' class="btn btn-primary">수정완료</button>
             <button type="submit" data-oper='remove' class="btn btn-danger">삭제</button>
@@ -52,6 +36,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	controlInput('수정');
+	
 	var frmpost = $("#frmpost");
 	//처리 우선 순위가 있고 script가 html보다 우선순위가 앞선다
 	$("button").on("click", function (eventInfo) {

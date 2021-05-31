@@ -10,25 +10,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-body">
-
-				<div class="form-group">
-					<label>아이디</label> <input name="id" value="${post.id}" readonly="readonly">
-				</div>
-				
-				<div class="form-group">
-					<label>제목</label>
-					<input class="form-control" name="title" value="${post.title}" readonly="readonly" ></input>
-				</div>
-				
-				<div class="form-group">
-					<label>내용</label>
-					<textarea class="form-control" name="content" rows="3" readonly="readonly">${post.content}</textarea>
-				</div>
-
-				<div class="form-group">
-					<label>작성자</label>
-					<input class="form-control" name="writer" value="${post.writer.name}" readonly="readonly" ></input>
-				</div>
+				<%@ include file="./includes/postCommon.jsp"%>
 				
 				<form id="frmOper" action="/post/modifyPost" method="get">
 					<input type="hidden" id="aaa" name="boardId" value="${boardId}">
@@ -50,6 +32,7 @@
 <%@ include file="../includes/footer.jsp"%>
 <script>
 $(document).ready(function(){
+	
 	$("button[data-oper='modify']").on("click", function(){
 		$('#frmOper').submit();
 	})
