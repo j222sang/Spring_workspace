@@ -16,6 +16,7 @@ public class ClassAnalyzer {
 	public static List<AccessibleObject> findFeatureByAnnotation(Class targetClass, Class targetAnno) {
 		// Annotation이 달려있는 변수나 메소드를 찾아서 합친것을 반환해줄 리스트
 		List<AccessibleObject> ret = new ArrayList<>();
+								//탐색할 클래스, 찾을 annotation, 결과를 담을 list
 		findFeatureByAnnotation(targetClass, targetAnno, ret);
 		return ret;
 	}
@@ -40,7 +41,6 @@ public class ClassAnalyzer {
 			for (Method method : methods) {
 				// 해당필드위에 annotaion 이달려 있는가
 				Annotation anno = method.getAnnotation(targetAnno);
-
 				if (anno != null) {
 					list.add(method);
 				}
