@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import www.dream.com.bulletinBoard.dto.PostCriteria;
 import www.dream.com.bulletinBoard.model.BoardVO;
@@ -73,14 +74,11 @@ public class PostController {
 		if(postService.updatePost(modifiedPost)) {
 			rttr.addFlashAttribute("result", "수정성공");
 		}
+		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("");
+		builder.queryParam("boardId", boardId);
+		fromUser.getLink(builder);
 		
-		rttr.addAttribute("boardId", boardId);
-		rttr.addAttribute("pageNumber", fromUser.getPageNumber());
-		rttr.addAttribute("amount", fromUser.getAmount());
-		rttr.addAttribute("type", fromUser.getType());
-		rttr.addAttribute("keyword", fromUser.getKeyword());
-		
-		return "redirect:/post/list";
+		return "redirect:/post/list" + builder.toUriString();
 	}
 	
 	@PostMapping(value="removePost")
@@ -90,12 +88,10 @@ public class PostController {
 			
 			rttr.addFlashAttribute("result", "삭제처리가 성공");
 		}
-		rttr.addAttribute("boardId", boardId);
-		rttr.addAttribute("pageNumber", fromUser.getPageNumber());
-		rttr.addAttribute("amount", fromUser.getAmount());
-		rttr.addAttribute("type", fromUser.getType());
-		rttr.addAttribute("keyword", fromUser.getKeyword());
+		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("");
+		builder.queryParam("boardId", boardId);
+		fromUser.getLink(builder);
 		
-		return "redirect:/post/list";
+		return "redirect:/post/list" + builder.toUriString();
 	}
 }
