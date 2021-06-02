@@ -23,6 +23,7 @@
       <a href="/">메인으로</a>
          
          
+         
          <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%"
                cellspacing="0">

@@ -129,6 +129,9 @@ public class PosAnalyzer {
 	 * @param ret
 	 */
 	private static void analyzeHashTag(String analysisTargetString, Map<String, Integer> ret) {
+		if (analysisTargetString == null) {
+			return;
+		}
 		KomoranResult analyzeResultList = komoran.analyze(analysisTargetString);
 		List<Token> tokenList = analyzeResultList.getTokenList();
 		for (Token token : tokenList) {

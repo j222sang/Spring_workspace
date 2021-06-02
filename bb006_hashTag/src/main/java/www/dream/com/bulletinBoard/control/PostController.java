@@ -45,8 +45,6 @@ public class PostController {
 		model.addAttribute("boardId", boardId);
 	}
 	
-
-	
 	@GetMapping(value="registerPost")
 	public void registerPost(@RequestParam("boardId") int boardId, Model model) {
 		model.addAttribute("boardId", boardId);
@@ -57,9 +55,11 @@ public class PostController {
 		BoardVO board = new BoardVO(boardId);
 		Party writer = new User("hong");
 		newPost.setWriter(writer);
+
 		postService.insert(board, newPost);
 		
 		rttr.addFlashAttribute("result", newPost.getId());
+		
 		return "redirect:/post/list?boardId=" + boardId;
 	}
 	
