@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../includes/header.jsp"%>
 
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -23,6 +22,7 @@
 				
 				<input type="hidden" name="pageNumber" value="${pagenation.pageNumber}">
 				<input type="hidden" name="amount" value="${pagenation.amount}">
+				<input type="hidden" name="searching" value="${pagenation.searching}"/>
 			</form>
 
 		</div>
@@ -54,13 +54,17 @@ $(document).ready(function(){
 			var boardIdInput = frmPost.find("#boardId");
 			var pageNumTag = $("input[name='pageNumber']");
 			var amountTag = $("input[name='amount']");
-
-			frmPost.attr("action", "/post/list").attr("method", "get");
+			
+			var searching = $('input[name="searching"]');
+			
+			frmPost.attr("action", "/post/listBySearch").attr("method", "get");
 			<!-- form에 담겨 있는 모든 하위 요소를 없애기. -->
 			frmPost.empty();
 			frmPost.append(boardIdInput);	
 			frmPost.append(pageNumTag);
 			frmPost.append(amountTag);
+			frmPost.append(searching);
+
 			<!-- append를 통하여 boradId값 넣어주기 -->
 		}
 		frmPost.submit();

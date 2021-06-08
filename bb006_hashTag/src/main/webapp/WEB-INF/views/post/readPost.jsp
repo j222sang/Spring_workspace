@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../includes/header.jsp"%>
 
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -21,6 +20,8 @@
 				<input type="hidden" id="as" name="postId" value="${post.id}">
 				<input type="hidden" name="pageNumber" value="${pagenation.pageNumber}">
 				<input type="hidden" name="amount" value="${pagenation.amount}">
+				<input type="hidden" name="searching" value="${pagenation.searching}"/>
+				
 			</form>
 
 		</div>
@@ -41,7 +42,7 @@
 
 		$("button[data-oper='list']").on("click", function() {
 			$("#frmOper").find("#as").remove();
-			$("#frmOper").attr("action", "/post/list").submit();
+			$("#frmOper").attr("action", "/post/listBySearch").submit();
 		});
 	});
 </script>

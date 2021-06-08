@@ -7,6 +7,7 @@ CREATE SEQUENCE seq_hashtag_id;
 -- id, super_id, hashtag, description
 create table s_hashtag(
    id			number(9) primary key,
+   --추상 개념으로 통합 검색에서 활용하기 위하여
    super_id		number(9) references s_hashtag(id),
    hashtag		varchar2(100), --단어
    description	varchar2(1000)
@@ -22,6 +23,15 @@ create table sm_ht2post(
 	post_id			varchar2(4000),
 	occur_cnt		number(9),
 	primary key(hashtag_id, post_id)
+);
+
+--개인화서비스. Personalization
+create table sm_ht2party(
+	hashtag_id		number(9),
+	user_id			varchar2(10),
+	occur_cnt		number(9),
+	latest_use_time	timestamp		default sysdate not null,
+	primary key(user_id, hashtag_id)
 );
 
 --sequence를 활용하여 원하는 개수만큼 숫자형 id 만들어 내기

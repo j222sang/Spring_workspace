@@ -59,7 +59,7 @@ $(document).ready(function(){
 			var type = $('input[name="type"]');
 			var keyword = $('input[name="keyword"]');
 			
-				frmPost.attr("action", "/post/list").attr("method", "get");
+			frmPost.attr("action", "/post/list").attr("method", "get");
 			<!-- form에 담겨 있는 모든 하위 요소를 없애기. -->
 			frmPost.empty();
 			frmPost.append(boardIdInput);	

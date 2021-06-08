@@ -1,11 +1,16 @@
 package www.dream.com.common.dto;
 
-import lombok.Data;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.Data;
+import www.dream.com.framework.util.StringUtil;
 @Data
 public class Criteria {
 	//몇 페이지의 몇 개
 	private static final float PAGENATION_TOTAL = 10;
+	
+	private String searching; // 이 데이터는 화면에 나타는 검색어의 집합 ex) "내사랑 네오"
+	
 	private int startPage, endPage; // 화면에 출력되는 첫페이지와 마지막 페이지
 	private boolean prev, next; // 앞으로 가기 및 뒤로 가기
 	private int pageNumber; //현재 쪽 번호
@@ -33,5 +38,21 @@ public class Criteria {
 		next = endPage < realEnd;
 		
 	}
+	public boolean hasSearching() {
+		return StringUtil.hasInfo(searching);
+	}
 	
+	public String [] getSearchingHashtags() {
+		return searching == null ? new String[] {} : searching.split(" ");
+	}
+	
+	/**
+	 * Criteria가 가지고 있는 정보를 UriComponentsBuilder에 추가해준다  
+	 * @param builder
+	 */
+	public void appendQueryParam(UriComponentsBuilder builder) {
+		builder.queryParam("pageNumber", pageNumber)
+				.queryParam("amount", amount)
+				.queryParam("searching", searching);
+	}
 }

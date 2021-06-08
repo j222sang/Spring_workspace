@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import www.dream.com.bulletinBoard.model.BoardVO;
 import www.dream.com.bulletinBoard.model.PostVO;
 import www.dream.com.bulletinBoard.service.BoardService;
@@ -27,15 +29,17 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
+	
 	/** 특정 게시판에 등록되어 있는 게시글을 목록으로 조회하기 */
-	/** void의 의미는 post/list.jsp로 반환  */
-	@GetMapping(value="list")
-	public void listPost(@RequestParam("boardId") int boardId, 
+	/** void의 의미는 post/listBySearch.jsp로 반환  */
+	
+	@GetMapping(value="listBySearch")
+	public void listPostBySearch(@RequestParam("boardId") int boardId, 
 			@ModelAttribute("pagenation") Criteria fromUser, Model model ) {
-		model.addAttribute("listPost", postService.getList(boardId, fromUser));
+		model.addAttribute("listPost", postService.getListByHashTag(boardId, fromUser));
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
-		fromUser.setTotal(postService.getTotalCount(boardId));
+		fromUser.setTotal(postService.getSearchTotalCount(boardId, fromUser));
 	}
 	
 	@GetMapping(value={"readPost", "modifyPost"})
@@ -59,10 +63,10 @@ public class PostController {
 		postService.insert(board, newPost);
 		
 		rttr.addFlashAttribute("result", newPost.getId());
-		
-		return "redirect:/post/list?boardId=" + boardId;
+
+		//listBySearch로 목록 조회하면 어떤 단점이 있는가? - 검색한 단어와 상관성이 없는 신규 게시글을 볼 수 없다
+		return "redirect:/post/listBySearch?boardId=" + boardId;
 	}
-	
 	
 	
 	@PostMapping(value="modifyPost")
@@ -71,13 +75,14 @@ public class PostController {
 		if(postService.updatePost(modifiedPost)) {
 			rttr.addFlashAttribute("result", "수정성공");
 		}
-		
-		rttr.addAttribute("boardId", boardId);
-		rttr.addAttribute("pageNumber", fromUser.getPageNumber());
-		rttr.addAttribute("amount", fromUser.getAmount());
-		
-		return "redirect:/post/list?boardId=" + boardId;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("");
+		builder.queryParam("boardId", boardId);
+		fromUser.appendQueryParam(builder);
+		//listBySearch : 게시글의 전체 내용이 바뀌기 보다는 조금의 내용이 바뀌는 것이 수정 행위의 일반적인 경향
+		//다만 너무 대폭적인 수정의 경우 재 검색 하여야 보일 것
+		return "redirect:/post/listBySearch" + builder.toUriString();
 	}
+	
 	
 	@PostMapping(value="removePost")
 	public String removePost(@RequestParam("boardId") int boardId,
@@ -86,8 +91,13 @@ public class PostController {
 			rttr.addFlashAttribute("result", "삭제처리가 성공");
 		}
 
-		rttr.addAttribute("pageNumber", fromUser.getPageNumber());
-		rttr.addAttribute("amount", fromUser.getAmount());
-		return "redirect:/post/list?boardId=" + boardId;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("");
+		builder.queryParam("boardId", boardId);
+		fromUser.appendQueryParam(builder);
+		//listBySearch : 게시글의 전체 내용이 바뀌기 보다는 조금의 내용이 바뀌는 것이 수정 행위의 일반적인 경향
+		//다만 너무 대폭적인 수정의 경우 재 검색 하여야 보일 것
+		return "redirect:/post/listBySearch" + builder.toUriString();
 	}
+	
+
 }

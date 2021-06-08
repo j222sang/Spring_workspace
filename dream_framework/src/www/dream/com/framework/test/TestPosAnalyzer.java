@@ -1,5 +1,7 @@
 package www.dream.com.framework.test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -7,8 +9,25 @@ import org.junit.Test;
 import www.dream.com.framework.langPosAnalyzer.PosAnalyzer;
 
 public class TestPosAnalyzer {
-
 	@Test
+	public void testString() {
+		Map<String, Integer> map = PosAnalyzer.getHashTags("안녕 하세요 홍길동님");
+		for (String k : map.keySet()) {
+			System.out.println(k + " : " + map.get(k));
+		}
+	}
+	
+	@Test
+	public void testList() {
+		List<String> data = new ArrayList<>();
+		data.add("조선시대");
+		data.add("조선시대");
+		Map<String, Integer> map = PosAnalyzer.getHashTags(data);
+		for (String k : map.keySet()) {
+			System.out.println(k + " : " + map.get(k));
+		}
+	}
+	//@Test
 	public void test() {
 		Post post = new Post();
 		post.setTitle("질문");

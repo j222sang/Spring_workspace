@@ -10,7 +10,6 @@ import www.dream.com.framework.langPosAnalyzer.HashTarget;
  *
  */
 @Data
-@HashTarget
 public class ContactPoint extends CommonMngVO {
 
    private String contactPointType; //연락처 종류

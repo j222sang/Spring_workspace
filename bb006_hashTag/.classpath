@@ -45,7 +45,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/dream_framework"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-8.5.65/lib/KOMORAN-3.3.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

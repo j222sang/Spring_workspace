@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import www.dream.com.framework.langPosAnalyzer.HashTarget;
-
-@HashTarget
 public class Party {
 	private String name;
 	//이런것까지 정보 찾아서 프레임워크 만들기는 각자의노력 generic

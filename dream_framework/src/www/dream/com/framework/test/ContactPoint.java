@@ -1,8 +1,6 @@
 package www.dream.com.framework.test;
 
 import www.dream.com.framework.langPosAnalyzer.HashTarget;
-
-@HashTarget
 public class ContactPoint {
 	@HashTarget
 	private String info;

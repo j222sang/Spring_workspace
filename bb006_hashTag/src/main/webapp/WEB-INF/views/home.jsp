@@ -16,7 +16,7 @@
 
 <!-- 	<select> -->
 		<c:forEach items="${boardList}" var="board">
-		<a href="/post/list?boardId=${board.id}">${board.name}</a>
+		<a href="/post/listBySearch?boardId=${board.id}">${board.name}</a>
 		<br>
 		</c:forEach>
 
