@@ -53,14 +53,11 @@ public class DicOrderSeedGennerator {
                   chSeed[2] = ch[k];
                   for (int l = 0; l < 62; l++) {
                      chSeed[3] = ch[l];
-                     for (int m = 0; m < 62; m++) {
-                        chSeed[4] = ch[m];
                         stmt.setLong(1, seqId);
                         stmt.setString(2, new String(chSeed));
                         stmt.addBatch();
                         stmt.clearParameters();
                         seqId++;
-                     }   
                   }   
                }   
                stmt.executeBatch();
