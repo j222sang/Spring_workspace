@@ -33,31 +33,7 @@ insert into s_board(id, name, description)
 
 	
 CREATE SEQUENCE seq_reply_id;
--- id, board_id, writer_id, title, content, read_cnt, like_cnt, dislike_cnt, reg_dt, upt_dt
-create table s_post(
-   id				varchar2(4000)	primary key,	
-   board_id			number(9)		REFERENCES s_board(id),
-   writer_id		varchar2(10)	REFERENCES s_party(user_id),
-   title			varchar2(100),
-   content			varchar2(4000),
-   read_cnt			number(9)		default 0,
-   like_cnt			number(9)		default 0,
-   dislike_cnt		number(9)		default 0,
-   reg_dt			timestamp		default sysdate not null,
-   upt_dt			timestamp		default sysdate not null
-);
-
-create index idx_post_board_id on s_post(board_id, id);
-
-
-insert into s_post(id, board_id, writer_id, title, content)
-	values('00000', 1, 'admin', '우리 Dream 사랑해 주세요', 'IT 용어 전문 게시판 서비스 컴퍼니 입니다.');
-insert into s_post(id, board_id, writer_id, title, content)
-	values('00001', 1, 'admin', '우리 회사의 2022년 목표 회원수는 20억명', '모든 IT전문가를 초빙합니다.');
-
 	
-	
---0609 첫번째
 -- id, writer_id, content, reg_dt, upt_dt, descrim, board_id, title, read_cnt, like_cnt, dislike_cnt
 create table s_reply(
    id				varchar2(4000)	primary key,	
@@ -75,6 +51,7 @@ create table s_reply(
 );
 create index idx_reply_board_id on s_reply(board_id, id);
 drop index idx_reply_board_id;
+
 --Oracle 자료형 선택 시 
 --int, long -> number(9), 19
 --date -> 년 월 일(date), 일시(timestamp)
